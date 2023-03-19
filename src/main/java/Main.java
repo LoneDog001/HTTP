@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class Main {
-    public static final ObjectMapper mapper = new ObjectMapper();
+    public static final ObjectMapper MAPPER = new ObjectMapper();
     public static final String REMOTE_SERVICE_URI = "https://raw.githubusercontent.com/netology-code/jd-homeworks/master/http/task1/cats";
 
     public static void main(String[] args) throws IOException {
@@ -27,9 +27,9 @@ public class Main {
         HttpGet request = new HttpGet(REMOTE_SERVICE_URI);
         request.setHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType());
         CloseableHttpResponse response = httpClient.execute(request);
-        List<Post> posts = mapper.readValue(response.getEntity().getContent(), new TypeReference<>() {
+        List<Post> posts = MAPPER.readValue(response.getEntity().getContent(), new TypeReference<>() {
         });
-        posts.stream().filter(value -> value.getUpvotes() > 0)
+        posts.stream().filter(value -> value.getUpvotes() > 0 )
                 .forEach(System.out::println);
         response.close();
         httpClient.close();
